@@ -23,7 +23,7 @@ const message = new EventBuilder(false)
                 console.log(`ID: ${id}`);
                 console.log(`Link: ${link}`);
                 console.log(`Message: ${message}`);
-                console.log(`Author: ${author}`);
+                console.log(`Author: ${author.replace('\\', '-')}`);
             }
         }
     }
