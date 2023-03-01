@@ -3,9 +3,6 @@
 <h2 align="center">Our System Bot</h2>
 <h4 align="center">High Quality Multipurpose Bot with 100+ Slash Commands Support and more for FREE!</h4>
 <p align="center">
-<a href="https://top.gg/bot/977742811132743762">
-  <img src="https://top.gg/api/widget/977742811132743762.svg">
-</a>
 <br />
 <br />
 <br />
@@ -17,20 +14,17 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-[![Run on Repl.it](https://repl.it/badge/github/brblacky/lavamusic)](https://repl.it/github/brblacky/lavamusic)
-[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/brblacky/lavamusic)
-
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/brblacky/lavamusic">
-    <img src="https://media.discordapp.net/attachments/876035356460462090/887728792926290091/20210820_124325.png" alt="Pbot-plus" width="200" height="200">
+  <a href="https://github.com/jo-project/RbxDisco-System">
+    <img src="https://cdn.discordapp.com/attachments/1072938695956643920/1080604791069220874/Logo.png" alt="rbxdisco-plus" width="200" height="200">
   </a>
 
-  <h3 align="center">lavamusic</h3>
+  <h3 align="center">rbxdisco-system</h3>
 
   <p align="center">
-    Lavamusic is a powerful music Bot
+    RbxDisco-System is a powerful music Bot
     <br />
     <br />
     <a href="https://moebot.xyz/invite/">Invite Moe</a>
