@@ -27,7 +27,6 @@ const cityinfo = new CommandBuilder()
                 const weather_data = data.weather
                 if (city_data && weather_data) {
                     await interaction.deferReply()
-                    const country_flag = `https://countryflagsapi.com/png/${city_data.code}`
 
                     const cityName = city_data.city
                     const regionName = city_data.region
