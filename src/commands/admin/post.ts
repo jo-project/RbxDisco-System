@@ -2,6 +2,7 @@ import { ChatInputCommandInteraction, ModalBuilder, TextInputBuilder,ActionRowBu
 import { CommandBuilder } from "discordbuilder.js";
 import { channelList } from "../../config/channelList.config.js";
 import { Bot } from "../../structures/bot.js";
+import { getDiscordMessageInfo } from "../../extensions/check.js";
 
 const post = new CommandBuilder()
 .setName('post')
@@ -14,8 +15,18 @@ const post = new CommandBuilder()
 })
 .addSubcommand(options => options
     .setName('add')
-    .setDescription('Add a post to announcements channel')
+    .setDescription('Add a post on announcements channel')
     .setLevel(2)
+)
+.addSubcommand(options => options
+    .setName('delete')
+    .setLevel(3)
+    .setDescription('Delete a post on announcements channel')
+    .addStringOption(opt => opt
+        .setName('message_link_or_id')
+        .setDescription('Message link or id to delete')
+        .setRequired(true)
+    )
 )
 .setCallback(
     async (client: Bot, interaction: ChatInputCommandInteraction) => {
@@ -131,6 +142,50 @@ const post = new CommandBuilder()
                 })
                 
             }
+        } else if (sub === 'delete') {
+            await interaction.deferReply({ ephemeral: true })
+            const linkId = options.getString('message_link_or_id')!
+            const messageData = getDiscordMessageInfo(linkId)
+            const targetChannel = interaction.guild!.channels.cache.get(messageData.channelId!) as TextChannel
+            const targetMessage = await targetChannel.messages.fetch(messageData.messageId!);
+            const delMsg = await targetMessage.delete();
+
+            const privateEmbed = new EmbedBuilder()
+            .setTitle('Success')
+            .setColor(0x198754)
+            .setDescription(`\`\`\`You have deleted a post\`\`\``)
+            .setTimestamp()
+            .setFooter({ text: interaction.user!.username, iconURL: client.user!.displayAvatarURL({ size: 1024, extension: 'png'}) || ''})
+
+            const newEmbed = new EmbedBuilder()
+            .setTitle('Message Deleted')
+            .setColor(0x819CFF)
+            .setDescription(`<@${user.id}> **has deleted a post**`)
+            .addFields(
+                {
+                    name: 'Author',
+                    value: delMsg.author.tag
+                },
+                {
+                    name: 'Title',
+                    value: delMsg.embeds[0].title!
+                },
+                {
+                    name: 'Description',
+                    value: delMsg.embeds[0].description!
+                }
+            )
+            .setTimestamp()
+            .setFooter({ text: interaction.guild!.name,  iconURL: interaction.guild!.iconURL({ size: 1024, extension: 'png' }) || ''})
+            
+            const msgLog = await interaction.guild!.channels.cache.get(`1080577147124580442`) as TextChannel
+            await msgLog.send({
+                embeds: [newEmbed]
+            })
+
+            return interaction.editReply({
+                embeds: [privateEmbed]
+            })
         }
     }
 )
