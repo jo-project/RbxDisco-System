@@ -1,4 +1,5 @@
 import { Client, GatewayIntentBits, PresenceData, PresenceStatusData, Collection } from "discord.js";
+import { Octokit, App } from "octokit";
 
 import { CommandService } from "../services/command.js";
 import { EventService } from "../services/event.js";
