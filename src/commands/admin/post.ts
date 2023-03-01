@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, ModalBuilder, TextInputBuilder,ActionRowBuilder, EmbedBuilder, TextInputStyle, TextChannel } from "discord.js";
+import { ChatInputCommandInteraction, ModalBuilder, TextInputBuilder,ActionRowBuilder, EmbedBuilder, TextInputStyle, TextChannel, WebhookClient } from "discord.js";
 import { CommandBuilder } from "discordbuilder.js";
 import { channelList } from "../../config/channelList.config.js";
 import { Bot } from "../../structures/bot.js";
@@ -46,6 +46,13 @@ const post = new CommandBuilder()
             .setStyle(TextInputStyle.Short)
             .setRequired(false)
 
+            const webhook = new TextInputBuilder()
+            .setCustomId('post-webhook')
+            .setLabel('Use Webhook')
+            .setPlaceholder('User true/false (default: false)')
+            .setStyle(TextInputStyle.Short)
+            .setRequired(false)
+
             const titleRow = new ActionRowBuilder<TextInputBuilder>()
             .addComponents(title)
 
@@ -55,7 +62,10 @@ const post = new CommandBuilder()
             const signedRow = new ActionRowBuilder<TextInputBuilder>()
             .addComponents(signed)
 
-            modal.addComponents(titleRow, descRow, signedRow)
+            const webhookRow = new ActionRowBuilder<TextInputBuilder>()
+            .addComponents(webhook)
+
+            modal.addComponents(titleRow, descRow, signedRow, webhookRow)
             await interaction.showModal(modal)
 
             const submitted = await interaction.awaitModalSubmit({
@@ -73,6 +83,7 @@ const post = new CommandBuilder()
                 const title = submitted.fields.getTextInputValue('post-title');
                 const desc = submitted.fields.getTextInputValue('post-description');
                 const signed = submitted.fields.getTextInputValue('post-signed');
+                const webhook = submitted.fields.getTextInputValue('post-webhook');
 
                 const newEmbed = new EmbedBuilder()
                 .setTimestamp()
@@ -100,11 +111,18 @@ const post = new CommandBuilder()
                     }
                 }
 
-                const announcementChannel = await interaction.guild!.channels.cache.get(channelList.announcement) as TextChannel
-                if (announcementChannel) {
-                    await announcementChannel.send({
+                if (webhook && webhook.toLowerCase() === 'true') {
+                    const webhookClient = new WebhookClient({ id: `1080563728782729338`, token: `4HIZ38NcDB1uUzUyVERaF7inYj0ohNrw3MIjxLG4RFxJGFgoZlLn3ioNOZW-Sbd1O5wQ` });
+                    webhookClient.send({
                         embeds: [newEmbed]
                     })
+                } else {
+                    const announcementChannel = await interaction.guild!.channels.cache.get(channelList.announcement) as TextChannel
+                    if (announcementChannel) {
+                        await announcementChannel.send({
+                            embeds: [newEmbed]
+                        })
+                    }
                 }
 
                 await submitted.reply({
