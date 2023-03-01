@@ -1,0 +1,1 @@
+export const allowedCommandChannel = `1071049852525490286`
