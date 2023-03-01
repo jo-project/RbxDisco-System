@@ -1,7 +1,7 @@
 <center><img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=RbxDisco-System&fontSize=80&fontAlignY=35&animation=twinkling&fontColor=gradient" /></center>
 <br>
-<h2 align="center">Our Music Bot</h2>
-<h4 align="center">High Quality Music Bot with a DJ System, Music Channel Setup, 24/7 in VC, Stage Channels, Slash Commands Support and more for FREE!</h4>
+<h2 align="center">Our System Bot</h2>
+<h4 align="center">High Quality Multipurpose Bot with 100+ Slash Commands Support and more for FREE!</h4>
 <p align="center">
 <a href="https://top.gg/bot/977742811132743762">
   <img src="https://top.gg/api/widget/977742811132743762.svg">
