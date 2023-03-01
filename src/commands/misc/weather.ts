@@ -36,6 +36,7 @@ const cityinfo = new CommandBuilder()
                     const countryFlag = `https://countryflagsapi.com/png/${cityCode.toLowerCase()}`
                     const population = `${city_data.population}`
                     const time = `<t:${city_data.time}>`
+                    console.log(time)
                     const embed = new EmbedBuilder()
                     .setAuthor({ name: `City Data`, iconURL: countryFlag})
                     //@ts-ignore
