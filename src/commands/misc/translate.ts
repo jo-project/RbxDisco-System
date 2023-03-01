@@ -6,7 +6,7 @@ import ISO6391 from 'iso-639-1'
 
 const translate = new CommandBuilder()
 .setName('translate')
-.setDescription('Translate command')
+.setDescription('Translator system')
 .setLevel(1)
 .setCategory({
     name: 'Miscellaneous',
