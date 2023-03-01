@@ -158,7 +158,7 @@ const post = new CommandBuilder()
             .setFooter({ text: interaction.user!.username, iconURL: client.user!.displayAvatarURL({ size: 1024, extension: 'png'}) || ''})
 
             const newEmbed = new EmbedBuilder()
-            .setTitle('Message Deleted')
+            .setTitle('Post Deleted')
             .setColor(0x819CFF)
             .setDescription(`<@${user.id}> **has deleted a post**`)
             .addFields(
