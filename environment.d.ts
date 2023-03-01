@@ -5,7 +5,8 @@ declare global {
         TOKEN: string;
         OWNER: string;
         WEATHER_KEY: string
-        TIMEZONE_KEY: string
+        TIMEZONE_KEY: string;
+        GITHUB_KEY: string;
       }
     }
   }

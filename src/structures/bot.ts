@@ -28,6 +28,7 @@ export class Bot extends Client {
     public Listeners: EventService | undefined = undefined;
     public Commands: CommandService | undefined = undefined;
     public commands: any[] = [];
+    public octokit = new Octokit({ auth: process.env.GITHUB_KEY! })
     public help = new Collection<string, {
         name: string,
         description: string,
