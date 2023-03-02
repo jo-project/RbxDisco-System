@@ -2,6 +2,8 @@ import disk from 'diskusage'
 import si from 'systeminformation'
 import { stripIndents } from 'common-tags'
 import os from 'os'
+import { version } from 'discord.js'
+import { version as BotVersion } from '../config/bot.config.js'
 
 
 /**
@@ -64,27 +66,30 @@ var startMeasure = cpuAverage();
 
 async function checkSpace(path) {
   const { free, total } = await disk.check(path);
+  const used = total - free
   const freePercentage = free / total
+  const usedPercentage = used / total
   const totalNumber = total / 1000000000
   const freeNumber = free / 1000000000
+  const usedNumber = used / 1000000000
   const freePercentageNumber = freePercentage * 100
+  const usedPercentageNumber = usedPercentage * 100
   return {
     total: `${totalNumber.toFixed(2)} GB`,
-    free: `${freeNumber.toFixed(2)} GB (${freePercentageNumber.toFixed(1)}%)`
+    free: `${freeNumber.toFixed(2)} GB (${freePercentageNumber.toFixed(1)}%)`,
+    used: `${usedNumber.toFixed(2)} GB (${usedPercentageNumber.toFixed(1)}%)`
   }
 }
 
 export async function checkSystem() {
 
   const cpu = await si.cpu();
-  const disk = (await si.diskLayout())[0];
   const os = await si.osInfo();
-  const versions = await si.versions();
   const ram = await si.mem();
 
   const space = await checkSpace('/')
 
-  var endMeasure = cpuAverage(); 
+  var endMeasure = cpuAverage();
 
   //Calculate the difference in idle and total time between the measures
   var idleDifference = endMeasure.idle - startMeasure.idle;
@@ -93,16 +98,28 @@ export async function checkSystem() {
   //Calculate the average percentage CPU usage
   var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference);
 
+  const ramUsed = Math.round(ram.used) / 1024 / 1024 / 1024
+  const ramTotal = Math.round(ram.total / 1024 / 1024 / 1024)
+
   let info = stripIndents`CPU: ${cpu.manufacturer} ${cpu.brand} @ ${cpu.speed}GHz
   Cores: ${cpu.cores} (${cpu.physicalCores} Physical)
   CPU Usage: ${percentageCPU}%
-  Memory total: ${Math.round(ram.total / 1024 / 1024 / 1024)} GB
-  Memory used: ${Math.round(ram.used) / 1024 / 1024 / 1024} GB
+  Memory total: ${ramTotal.toFixed(1)} GB
+  Memory used: ${ramUsed.toFixed(1)} GB
   Disk total: ${space.total}
-  Disk used: ${space.free}
+  Disk used: ${space.used}
   Database size: 512 MB
   OS: ${os.distro} ${os.codename} (${os.platform})
   Kernel: ${os.kernel} ${os.arch}`
 
   return info
+}
+
+export async function checkVersion() {
+  const versions = await si.versions();
+  return {
+    node: versions.node,
+    framework: version,
+    bot: BotVersion
+  }
 }

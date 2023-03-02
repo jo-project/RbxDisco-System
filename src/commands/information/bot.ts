@@ -4,7 +4,9 @@ import { Bot } from "../../structures/bot.js";
 import moment from 'moment'
 import 'moment-duration-format'
 import { checkSystem } from "../../extensions/check.js";
-import { stripIndents } from 'common-tags'
+import { stripIndents } from 'common-tags';
+import { snowflakeToDate, dateToUnix } from "../../extensions/convert.js";
+import { checkVersion } from "../../extensions/check.js";
 
 const bot = new CommandBuilder()
 .setName('bot')
@@ -15,11 +17,6 @@ const bot = new CommandBuilder()
     emoji: '<:info:1072994286645280818>'
 })
 .addSubcommand(opt => opt
-    .setName('uptime')
-    .setDescription('Invite link for this server')
-    .setLevel(0)
-)
-.addSubcommand(opt => opt
     .setName('info')
     .setDescription('Get information about the bot')
     .setLevel(0)
@@ -29,32 +26,7 @@ const bot = new CommandBuilder()
         const { options, guild } = interaction;
         const sub = options.getSubcommand()
         await interaction.deferReply()
-        if (sub === 'uptime') {
-            const duration = moment.duration(bot.uptime!);
-            const durationString = duration.format("\`D\` [days], \`H\` [hrs], \`m\` [mins], \`s\` [secs]");
-            const upvalue = (Date.now() / 1000 - bot.uptime! / 1000).toFixed(0);
-
-            const timeEmbed = new EmbedBuilder()
-            .setTitle('⬆️・Bot Uptime')
-            .setDescription(`See the uptime of Bot`)
-            .setColor(0x7289DA)
-            .addFields({
-                name: '⌛┇Uptime',
-                value: `${durationString}`,
-                inline: true
-            }, {
-                name: '⏰┇Up Since',
-                value: `<t:${upvalue}>`,
-                inline: true
-            })
-            .setTimestamp()
-            .setFooter({
-                text: guild!.name,
-                iconURL: guild!.iconURL({ extension: 'png' }) || ''
-            })
-
-            return interaction.editReply({ embeds: [timeEmbed] })
-        } else if (sub === 'info') {
+        if (sub === 'info') {
             const systemInfo = await checkSystem()
 
             const guildSizeInit = await bot.cluster.broadcastEval(c => c.guilds.cache.size)
@@ -67,6 +39,14 @@ const bot = new CommandBuilder()
                 })
             })
 
+            const discordAccountTimestamp = snowflakeToDate(bot.user!.id)
+            const discordAge = dateToUnix(discordAccountTimestamp, false)
+
+            const duration = moment.duration(bot.uptime!);
+            const durationString = duration.format("\`D\` [days], \`H\` [hrs], \`m\` [mins], \`s\` [secs]");
+
+            const version = await checkVersion();
+            
             const botEmbed = new EmbedBuilder()
             .setAuthor({
                 name: bot.user!.username,
@@ -80,12 +60,12 @@ const bot = new CommandBuilder()
             .setColor(0x36393F)
             .addFields(
                 {
-                    name: 'Name',
+                    name: '<:person:1080942557695049748> <:arrow:1080943378713284648> Name',
                     value: `> ${bot.user!.username}`,
                     inline: true
                 },
                 {
-                    name: 'ID',
+                    name: '<:bot_id:1080943822013472768> <:arrow:1080943378713284648> ID',
                     value: `> \`${bot.user!.id}\``,
                     inline: true
                 },
@@ -119,6 +99,41 @@ const bot = new CommandBuilder()
                     value: `> \`${memberCount}\` ${memberCount > 1 ? 'members' : 'member'}`,
                     inline: true
                 },
+                {
+                    name: 'Created at',
+                    value: `> <t:${discordAge}>`,
+                    inline: true
+                },
+                {
+                    name: 'Uptime',
+                    value: `> ${durationString}`,
+                    inline: true
+                },
+                {
+                    name: 'API Speed',
+                    value: `> \`${bot.ws.ping}\` ms`,
+                    inline: true
+                },
+                {
+                    name: 'Version',
+                    value: `> \`${version.bot}\``,
+                    inline: true
+                },
+                {
+                    name: 'Language',
+                    value: `> <:typescript:1080939281218031706>`,
+                    inline: true
+                },
+                {
+                    name: 'Node.js Version',
+                    value: `> \`${version.node}\``,
+                    inline: true
+                },
+                {
+                    name: 'Framework Version',
+                    value: `> \`${version.framework}\``,
+                    inline: true
+                }
             )
 
             const systemEmbed = new EmbedBuilder()
