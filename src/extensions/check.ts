@@ -95,7 +95,7 @@ export async function checkSystem() {
 
   let info = stripIndents`CPU: ${cpu.manufacturer} ${cpu.brand} @ ${cpu.speed}GHz
   Cores: ${cpu.cores} (${cpu.physicalCores} Physical)
-  CPU Usage: ${percentageCPU}
+  CPU Usage: ${percentageCPU}%
   Memory total: ${Math.round(ram.total / 1024 / 1024 / 1024)} GB
   Memory used: ${Math.round(ram.used) / 1024 / 1024 / 1024} GB
   Disk total: ${space.total}

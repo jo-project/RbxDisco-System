@@ -1,5 +1,6 @@
 import { Client, GatewayIntentBits, PresenceData, PresenceStatusData, Collection } from "discord.js";
 import { Octokit, App } from "octokit";
+import { ClusterClient, getInfo } from 'discord-hybrid-sharding';
 
 import { CommandService } from "../services/command.js";
 import { EventService } from "../services/event.js";
@@ -7,6 +8,8 @@ import { DatabaseProvider } from "../providers/database.js";
 import { log } from "../extensions/logger.js";
 
 export class Bot extends Client {
+    shards: number[];
+    shardCount: number;
     constructor(token: string) {
         super({
             intents: [
@@ -21,8 +24,11 @@ export class Bot extends Client {
             ],
         })
         this.token = token;
+        this.shards = getInfo().SHARD_LIST,
+        this.shardCount = getInfo().TOTAL_SHARDS
     }
 
+    public cluster = new ClusterClient(this);
     public database: DatabaseProvider | undefined;
     public guildIds: string[] = [];
     public Listeners: EventService | undefined = undefined;

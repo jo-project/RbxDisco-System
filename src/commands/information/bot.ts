@@ -57,6 +57,16 @@ const bot = new CommandBuilder()
         } else if (sub === 'info') {
             const systemInfo = await checkSystem()
 
+            const guildSizeInit = await bot.cluster.broadcastEval(c => c.guilds.cache.size)
+            const guildsInit = await bot.cluster.broadcastEval(c => c.guilds.cache)
+            const guildSize = guildSizeInit.reduce((prev, val) => prev + val, 0)
+            let memberCount = 0;
+            guildsInit.forEach(guilds => {
+                guilds.forEach(guild => {
+                    memberCount += guild.memberCount
+                })
+            })
+
             const botEmbed = new EmbedBuilder()
             .setAuthor({
                 name: bot.user!.username,
@@ -71,12 +81,44 @@ const bot = new CommandBuilder()
             .addFields(
                 {
                     name: 'Name',
-                    value: `> ${bot.user!.username}`
+                    value: `> ${bot.user!.username}`,
+                    inline: true
                 },
                 {
                     name: 'ID',
-                    value: `> ${bot.user!.id}`
-                }
+                    value: `> \`${bot.user!.id}\``,
+                    inline: true
+                },
+                {
+                    name: "Shards",
+                    value: `> \`${bot.shardCount}\` ${bot.shardCount > 1 ? 'shards' : 'shard'}`,
+                    inline: true
+                },
+                {
+                    name: 'Owner',
+                    value: `> <@${process.env.OWNER_ID!}>`,
+                    inline: true
+                },
+                {
+                    name: 'Developer',
+                    value: `> <@${process.env.OWNER_ID!}>`,
+                    inline: true
+                },
+                {
+                    name: 'Commands',
+                    value: `> \`${bot.commands.length}\` commands`,
+                    inline: true
+                },
+                {
+                    name: 'Servers',
+                    value: `> \`${guildSize}\` ${guildSize > 1 ? 'servers' : 'server'}`,
+                    inline: true
+                },
+                {
+                    name: 'Members',
+                    value: `> \`${memberCount}\` ${memberCount > 1 ? 'members' : 'member'}`,
+                    inline: true
+                },
             )
 
             const systemEmbed = new EmbedBuilder()
@@ -86,6 +128,11 @@ const bot = new CommandBuilder()
             .setDescription(stripIndents`\`\`\`json
             ${systemInfo}\`\`\``)
             .setColor(0x36393F)
+            .setTimestamp()
+            .setFooter({
+                text: `\u00a9 ${bot.user!.username} 2023`,
+                iconURL: bot.user!.displayAvatarURL({ extension: 'png' })
+            })
 
             return interaction.editReply({ embeds: [botEmbed, systemEmbed]})
         }
