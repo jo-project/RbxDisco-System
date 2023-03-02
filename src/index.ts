@@ -1,5 +1,4 @@
 import { Bot } from "./structures/bot.js";
-import { log } from "./extensions/logger.js";
 import { config } from "dotenv";
 config();
 
