@@ -2,6 +2,7 @@ import { EventBuilder } from "discordbuilder.js";
 import { Bot } from "../../structures/bot.js";
 import ora, { Ora} from 'ora';
 import chalk from "chalk";
+import { ActivityType } from "discord.js";
 
 
 const ready = new EventBuilder(true)
@@ -40,6 +41,13 @@ const ready = new EventBuilder(true)
             }
             counter++;
         }, 200)
+
+        await client.setPresence({
+            activities: [{
+                name: client.shardCount > 1 ? `${client.shardCount} shards` : `${client.shardCount} shard`,
+                type: ActivityType.Watching
+            }]
+        })
     }
 )
 
