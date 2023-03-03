@@ -1,1 +1,1 @@
-export const allowedCommandChannel = `1071049852525490286`
+export const allowedCommandChannel = `1081074427418136626`

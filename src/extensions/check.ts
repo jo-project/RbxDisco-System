@@ -4,13 +4,22 @@ import { stripIndents } from 'common-tags'
 import os from 'os'
 import { version } from 'discord.js'
 import { version as BotVersion } from '../config/bot.config.js'
-
+import google from 'googlethis';
 
 /**
  * Regex
  */
 const discordLinkRegex = /^https?:\/\/(www\.)?discord(?:app)?\.com\/channels\/(\d{17,19})\/(\d{17,19})\/(\d{17,19})$/;
 const discordIdRegex = /^(\d{17,19})$/;
+const options = {
+  page: 0, 
+  safe: false, // Safe Search
+  parse_ads: false, // If set to true sponsored results will be parsed
+  additional_params: { 
+    // add additional parameters here, see https://moz.com/blog/the-ultimate-guide-to-the-google-search-parameters and https://www.seoquake.com/blog/google-search-param/
+    hl: 'en' 
+  }
+}
 
 function isDiscordLink(input: string): boolean {
   return discordLinkRegex.test(input);
@@ -79,6 +88,11 @@ async function checkSpace(path) {
     free: `${freeNumber.toFixed(2)} GB (${freePercentageNumber.toFixed(1)}%)`,
     used: `${usedNumber.toFixed(2)} GB (${usedPercentageNumber.toFixed(1)}%)`
   }
+}
+
+async function getBrandImage(brand:string) {
+  const response = await google.image(`${brand} logo`, options)
+  return response
 }
 
 export async function checkSystem() {
