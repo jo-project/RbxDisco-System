@@ -24,30 +24,23 @@
   <h3 align="center">rbxdisco-system</h3>
 
   <p align="center">
-    RbxDisco-System is a powerful music Bot
+    RbxDisco-System is a powerful multi functionality Bot
     <br />
     <br />
-    <a href="https://moebot.xyz/invite/">Invite Moe</a>
+    <a href="https://discord.com/api/oauth2/authorize?client_id=1070643822041772035&permissions=8&scope=bot">Invite Moe</a>
     ·
-    <a href="https://github.com/brblacky/lavamusic/issues">Report Bug</a>
+    <a href="https://github.com/jo-project/RbxDisco-System/issues">Report Bug</a>
     ·
-    <a href="https://github.com/brblacky/lavamusic/issues">Request Feature</a>
+    <a href="https://github.com/jo-project/RbxDisco-System/issues">Request Feature</a>
   </p>
 </p>
-
-## 📝 Tutorial
-
-A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://youtu.be/x5lQD2rguz0)
 
 ## 🎭 Features
 
 - ✅ Setup System
-- ✅ Music
+- ✅ Moderation
 - ❌ 24/7
-- ❌ Dj
-- ❌ Custom Playlist (global)
 - ✅ SlashCommand
-- ✅ Custom prefix
 - ❌ Filters
 - ✅ Easy to use
 - ✅ And much more!
@@ -69,12 +62,6 @@ A Tutorial has been uploaded on YouTube, Watch it by clicking [here](https://you
 
 - [Nodejs](https://nodejs.org/en/) v18 and more
 - [Discord.js](https://github.com/discordjs/discord.js/) v14
-- [Java](https://adoptopenjdk.net/) for lavalink
-- [Lavalink](https://github.com/freyacodes/Lavalink/releases)
-
-Note: Java v11 or newer is required to run the Lavalink.jar. Java v13 is recommended. If you are using sdkman then its a manager, not Java, you have to install sdkman and use sdkman to install Java
-
-Warning: Java v14 has issues with Lavalink.
 
 ### 🌐 Main
 
@@ -83,65 +70,29 @@ Warning: Java v14 has issues with Lavalink.
 - Mongodb
   URI `for custom prefix` [MongoDB](https://account.mongodb.com/account/login)
 - Your ID `for eval command. It's dangerous if eval accessible to everyone`
-- Spotify client ID `for spotify support` [Click here to get](https://developer.spotify.com/dashboard/login)
-- Spotify client Secret `for spotify support` [Click here to get](https://developer.spotify.com/dashboard/login)
-
-## 🎶 Available music sources
-
-- ✅ YouTube
-- ✅ Bandcamp
-- ✅ SoundCloud
-- ✅ Twitch
-- ✅ Vimeo
-- ✅ http (you can use radio for it)
-- ✅ Spotify
-- ❌ Deezer
+- OpenWeather API `for weather support` [Click here to get](https://openweathermap.org/home/sign_in)
+- TimezoneDB Key `for timezone support` [Click here to get](https://timezonedb.com/)
 
 <!-- INSTALL -->
 
-## 🚀 Installation using docker-compose
-
-This section assumes you have docker and docker-compose installed and is running correctly.
-
-Download the [Docker-Compose file](https://raw.githubusercontent.com/brblacky/lavamusic/main/docker-compose.yml) in a seperate folder like lavamusic.
-
-Edit the Docker-Compose file and make sure to edit the following variables:
-
 ```yaml
 TOKEN: "put your bot token"
-PREFIX: "your bot prefix"
+MONGO_DB: "put your mongo db url"
+WEATHER_KEY: "your openweather api"
+TIMEZONE_KEY: "your timezonedb key"
+GITHUB_KEY: "your github key" (optional)
 OWNER_ID: "your discord id"
 ```
 
-For more information how to fill all the varialabes go to this page.
-You do not need to edit anything like the PORT, ADDRESS, PASSWORD, HOST, SECURE and USERNAME. Unless you know what your doing.
+Put that on .env file or you can copy .env.example and change it to .env
 
-After saving your changes you can open a terminal and go to the same location as the docker-compose file. Then type the following:
-
-```bash
-docker-compose up -d
-```
-
-The above command will start all your services and your bot should be up and running!
-
-To update, you only have to type the following:
+After that, you only need to type on the terminal
 
 ```bash
-docker-compose up --force-recreate --build -d
-image prune -f
+npm run build
 ```
 
-You can automate this by using [Watchtower](https://github.com/containrrr/watchtower). The following should be sufficient:
-
-```bash
-docker run --detach \
-    --name watchtower \
-    --volume /var/run/docker.sock:/var/run/docker.sock \
-    --restart on-failure \
-    containrrr/watchtower --cleanup
-```
-
-Do note that the bot will restart itself to update to the latest!
+Do note that the bot need to be restart manually unless you're using nodemon!
 
 ## 🚀 Installation from source
 
@@ -155,7 +106,7 @@ After cloning, run
 npm install
 ```
 
-- Start the bot with `node src/sharder.js`
+- Start the bot with `npm run build`
 
 to snag all of the dependencies. Of course, you need [node](https://nodejs.org/en/) installed. I also strongly recommend [nodemon](https://www.npmjs.com/package/nodemon) as it makes testing _much_ easier.
 
@@ -180,45 +131,27 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
 
 ## ⚙️ Configurations
 
-- edit in `src/config.js` and you can do in `.env`
+- edit src/config/data.config.ts and don't forget to fill it on .env
 
 ```js
-    token: process.env.TOKEN || "",  // your bot token
-    clientID: process.env.CLIENT_ID || "", // your bot client id
-    prefix: process.env.PREFIX || "!", // bot prefix
-    ownerID: process.env.OWNER_ID || "", //your discord id
-    SpotifyID: process.env.SPOTIFY_ID || "",
-    SpotifySecret: process.env.SPOTIFY_SECRET || "",
-    mongourl: process.env.MONGO_URL || "", // MongoDb URL
-    embedColor: process.env.EMBED_COLOR || 0x303236, // embed colour
-    logs: process.env.LOGS || "channel_id", // channel id for guild create and delete logs
-    errorLogsChannel: process.env.ERROR_LOGS_CHANNEL || "channel_id", //error logs channel id
-    SearchPlatform: process.env.SEARCH_PLATFORM || "youtube music", // Sets the Search Platform. Possibilities: youtube || youtube music || soundcloud
+  token: process.env.TOKEN || "", // your bot token
+  mongoDB: process.env.MONGO_DB || "", // MongoDB URL
+  weatherKey: process.env.WEATHER_KEY || "", // OpenWeather API Key
+  timezoneKey: process.env.TIMEZONE_KEY || "" // TimezoneDB Key
+  githubKey: process.env.GITHUB_KEY || "", // Github Key
+  ownerId: process.env.OWNER_ID || "", // Owner ID
 ```
-
-## 🌋 Lavalink
-
-```js
-      "host": "localhost",
-      "port": 2333,
-      "password": "coders",
-      "retryDelay": 3000,
-      "secure": false
-```
-
-- Create an application.yml file in your working directory and copy the [example](https://github.com/freyacodes/Lavalink/blob/master/LavalinkServer/application.yml.example) into the created file and edit it with your configuration.
-- Run the jar file by running `java -jar Lavalink.jar` in a Terminal window.
 
 ## ⚙️ SHARDS
 
-- edit in `sharder.js`
+- edit in `src/index.ts`
 
 ```js
-  respawn: true,
-  autoSpawn: true,
-  token: token,
-  totalShards: 1,
-  shardList: "auto",
+  totalShards: number || 'auto',
+  shardsPerClusters: number,
+  totalClusters: number || 'auto',
+  mode: 'process' || 'worker',
+  token: process.env.TOKEN! || 'botToken',
 ```
 
 <!-- ABOUT THE PROJECT -->
