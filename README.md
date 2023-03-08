@@ -153,10 +153,6 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
 
 ## 🌀 About
 Coming Soon
-<!-- [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=brblacky&repo=lavamusic&theme=tokyonight)](https://github.com/brblacky/lavamusic)
-
-Lavamusic is a lavalink music bot base in [erela.js](https://github.com/MenuDocs/erela.js)
-If you liked this repository, feel free to leave a star ⭐ to help promote ! -->
 
 ## 💌 Support Server
 Coming Soon
@@ -164,16 +160,6 @@ Coming Soon
 # Donate
 
 By donating, you will help me to maintain this Project!
-
-<!-- ## 🤝 Contributing
-
-1. [Fork the repository](https://github.com/brblacky/lavamusic/fork)
-2. Clone your fork: `git clone https://github.com/your-username/lavamusic.git`
-3. Create your feature branch: `git checkout -b my-new-feature`
-4. Stage changes `git add .`
-5. Commit your changes: `cz` OR `npm run commit` do not use `git commit`
-6. Push to the branch: `git push origin my-new-feature`
-7. Submit a pull request -->
 
 <!-- LICENSE -->
 
