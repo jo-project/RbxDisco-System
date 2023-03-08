@@ -22,7 +22,7 @@
     RbxDisco-System is a powerful multi functionality Bot
     <br />
     <br />
-    <a href="https://discord.com/api/oauth2/authorize?client_id=1070643822041772035&permissions=8&scope=bot">Invite Moe</a>
+    <a href="https://discord.com/api/oauth2/authorize?client_id=1070643822041772035&permissions=8&scope=bot">Invite Bot (Coming Soon)</a>
     ·
     <a href="https://github.com/jo-project/RbxDisco-System/issues">Report Bug</a>
     ·
@@ -79,7 +79,7 @@ Do note that the bot need to be restart manually unless you're using nodemon!
 ## 🚀 Installation from source
 
 ```bash
-git clone https://github.com/brblacky/lavamusic.git
+git clone https://github.com/jo-project/rbxdiscord-system
 ```
 
 After cloning, run
