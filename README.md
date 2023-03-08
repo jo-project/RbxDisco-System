@@ -7,11 +7,6 @@
 <br />
 <br />
 
-[![Version][version-shield]](version-url)
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
 <!-- PROJECT LOGO -->
@@ -157,24 +152,20 @@ Then turn on both of those Settings and click "Save Changes". Then you are done 
 <!-- ABOUT THE PROJECT -->
 
 ## 🌀 About
-
-[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=brblacky&repo=lavamusic&theme=tokyonight)](https://github.com/brblacky/lavamusic)
+Coming Soon
+<!-- [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=brblacky&repo=lavamusic&theme=tokyonight)](https://github.com/brblacky/lavamusic)
 
 Lavamusic is a lavalink music bot base in [erela.js](https://github.com/MenuDocs/erela.js)
-If you liked this repository, feel free to leave a star ⭐ to help promote !
+If you liked this repository, feel free to leave a star ⭐ to help promote ! -->
 
 ## 💌 Support Server
-
-[![DiscordBanner](https://invidget.switchblade.xyz/ns8CTk9J3e)](https://discord.gg/ns8CTk9J3e)<br />
-[Support Server](https://discord.gg/ns8CTk9J3e) - lavamusic's Support Server Invite
+Coming Soon
 
 # Donate
 
 By donating, you will help me to maintain this Project!
 
-- [PayPal](https://www.paypal.me/sdip521)
-
-## 🤝 Contributing
+<!-- ## 🤝 Contributing
 
 1. [Fork the repository](https://github.com/brblacky/lavamusic/fork)
 2. Clone your fork: `git clone https://github.com/your-username/lavamusic.git`
@@ -182,13 +173,13 @@ By donating, you will help me to maintain this Project!
 4. Stage changes `git add .`
 5. Commit your changes: `cz` OR `npm run commit` do not use `git commit`
 6. Push to the branch: `git push origin my-new-feature`
-7. Submit a pull request
+7. Submit a pull request -->
 
 <!-- LICENSE -->
 
 ## 🔐 License
 
-Distributed under the Apache-2.0 license License. See [`LICENSE`](https://github.com/brblacky/lavamusic/blob/master/LICENSE) for more information.
+Distributed under the Apache-2.0 license License. See [`LICENSE`](https://github.com/jo-project/rbxdisco-system/blob/main/LICENSE) for more information.
 
 [version-shield]: https://img.shields.io/github/package-json/v/brblacky/lavamusic?style=for-the-badge
 [version-url]: https://github.com/brblacky/lavamusic
